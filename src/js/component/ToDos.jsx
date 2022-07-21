@@ -1,32 +1,6 @@
-import React from "react";
-import "../../styles/home.css";
-import { useContext, createContext, useState } from "react";
-import injectContext, { Context } from "../store/appContext";
-import { AiOutlineClose } from "react-icons/ai";
+import React, { useState } from "react";
+import Inputs from "./Inputs.jsx";
 
-// export const Home = () => {
-//   const { store, actions } = useContext(Context);
-//   console.log("store", store);
-//   const [todoList, setTodoList] = useState(store.list);
-//   console.log("todoList", todoList);
-
-
-//   const addTodo = (todoList) => {
-//     setTodoList ( actions.addTask(0, todoList))
-//     };
-
-//   function removeTodoFromList(todo) {
-//     const todoDeleted = actions.removeTodo(todo);
-//     setTodoList(todoDeleted);
-//   }
-//   return (
-//     <Context.Provider
-//       value={{ todoList, removeTodoFromList, addTodo, setTodoList }}
-//     >
-//       <ToDos />
-//     </Context.Provider>
-//   );
-// };
 
 const ToDos = () => {
   const props = useContext(Context);
@@ -86,3 +60,4 @@ const ToDos = () => {
   );
 };
 
+export default ToDos;
