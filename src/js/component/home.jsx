@@ -1,6 +1,5 @@
 import React from "react";
-import "/workspace/react-hello/src/styles/index.css";
-import ToDos from "./ToDos.jsx";
+import ToDos from "/workspace/react-hello/src/js/component/ToDos.jsx";
 
 
 //create your first component
