@@ -10,6 +10,7 @@ const Inputs = (props) => {
             props.onDelete(props.id);
           }}
           className="delete-button"
+          placeholder="No task, add a task"
         >
           <i className="fas fa-times"></i>
         </span>

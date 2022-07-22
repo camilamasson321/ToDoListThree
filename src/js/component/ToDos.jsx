@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Inputs from "/workspace/react-hello/src/js/component/Inputs.jsx";
 
-
 const ToDos = () => {
   const [todoEntered, setTodoEntered] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -67,7 +66,6 @@ const ToDos = () => {
     }
   }
 
-  
   function putTasks() {
     //MAPPING OBJECTS
     const todos = tasks.map((item) => {
@@ -101,8 +99,7 @@ const ToDos = () => {
       });
   }
 
-
-  function clearFetch(){
+  function clearFetch() {
     fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
       method: "DELETE",
       headers: {
@@ -122,7 +119,7 @@ const ToDos = () => {
         //error handling
         console.log(error);
       });
-      setTasks([])
+    setTasks([]);
   }
 
   function deleteTask(id) {
@@ -135,23 +132,19 @@ const ToDos = () => {
 
   return (
     <div>
-      <button onClick={createPost}>Post</button>
-      <button onClick={getFetch}>Get</button>
-      <button onClick={putTasks}>Put</button>
-      <button onClick={clearFetch}>Clear All</button>
       <h1 className="todo-header">Todos</h1>
       <div className="todos-container d-flex flex-column">
-        <div className="todos-container-header d-flex flex-row">
-          <span className="me-3">Tasks</span>
+        <div className="todos-container-header d-flex flex-row justify-content-center">
           <input
             type="text"
             onChange={inputValue}
             onKeyDown={addNewTask}
             value={todoEntered}
+            placeholder="No task, add a task"
           />
         </div>
 
-        <div className="todos-container-body flex-grow-1">
+        <div className="todos-container-header d-flex flex-row justify-content-center">
           <ul>
             {tasks.map((task, index) => (
               <Inputs
@@ -163,11 +156,35 @@ const ToDos = () => {
             ))}
           </ul>
         </div>
-
-        <div className="flex-grow-1">
-          {tasks.length === 0
-            ? "No tasks, add a task"
-            : `Number of Tasks: ${tasks.length}`}
+        <div className="d-flex justify-content-center">
+          <button
+            type="button"
+            className="btn btn-outline-info"
+            onClick={createPost}
+          >
+            Post
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-info"
+            onClick={getFetch}
+          >
+            Get
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-info"
+            onClick={putTasks}
+          >
+            Put
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-info"
+            onClick={clearFetch}
+          >
+            Delete All
+          </button>
         </div>
       </div>
     </div>
@@ -175,4 +192,3 @@ const ToDos = () => {
 };
 
 export default ToDos;
-
