@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Inputs from "/workspace/react-hello/src/js/component/Inputs.jsx";
 
 const ToDos = () => {
-  const [todoEntered, setTodoEntered] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  function inputValue(e) {
-    const itemValue = e.target.value;
-    setTodoEntered(itemValue);
+  function handleChange(e) {
+    setInputValue(e.target.value);
   }
 
   function createPost() {
@@ -56,47 +55,48 @@ const ToDos = () => {
         console.log(error);
       });
   }
+  function printTask() {
+    setTasks((tasks) => {
+      return tasks.map((item, index) => {
+        return index != id;
+      });
+    });
+  }
+  
+  // const printList = tasks.map((tasks, inputValue));
 
   function addNewTask(e) {
+    console.log("e.key", e.key);
     if (e.key === "Enter") {
-      setTasks((current) => {
-        return [...current, todoEntered];
-      });
-      setTodoEntered("");
-    }
-  }
-
-  function putTasks() {
-    //MAPPING OBJECTS
-    const todos = tasks.map((item) => {
-      return {
-        label: item,
+      let newTask = {
+        label: inputValue,
         done: false,
       };
-    });
+      tasks.push(newTask);
+      console.log("#task000", tasks);
 
-    //
-    //FETCH USING PUT METHOD
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
-      method: "PUT",
-      body: JSON.stringify(todos),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => {
-        console.log(resp.ok); // will be true if the response is successfull
-        console.log(resp.status); // the status code = 200 or code = 400 etc.
-        return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+      fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
+        method: "PUT",
+        body: JSON.stringify(tasks),
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .then((data) => {
-        //here is were your code should start after the fetch finishes
-        console.log("Using the PUT method", data); //this will print on the console the exact object received from the server
-      })
-      .catch((error) => {
-        //error handling
-        console.log(error);
-      });
+        .then((resp) => {
+          console.log(resp.ok); // will be true if the response is successfull
+          console.log(resp.status); // the status code = 200 or code = 400 etc.
+          return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+        })
+        .then((data) => {
+          //here is were your code should start after the fetch finishes
+          console.log("Using the PUT method", data); //this will print on the console the exact object received from the server
+        })
+        .catch((error) => {
+          //error handling
+          console.log(error);
+        });
+      // setInputValue("")
+    }
   }
 
   function clearFetch() {
@@ -123,8 +123,8 @@ const ToDos = () => {
   }
 
   function deleteTask(id) {
-    setTasks((current) => {
-      return current.filter((item, index) => {
+    setTasks((tasks) => {
+      return tasks.filter((item, index) => {
         return index != id;
       });
     });
@@ -137,9 +137,10 @@ const ToDos = () => {
         <div className="todos-container-header d-flex flex-row justify-content-center">
           <input
             type="text"
-            onChange={inputValue}
+            onChange={handleChange}
             onKeyDown={addNewTask}
-            value={todoEntered}
+            onClick={getFetch}
+            value={inputValue}
             placeholder="No task, add a task"
           />
         </div>
@@ -157,27 +158,27 @@ const ToDos = () => {
           </ul>
         </div>
         <div className="d-flex justify-content-center">
-          <button
+          {/* <button
             type="button"
             className="btn btn-outline-info"
             onClick={createPost}
           >
-            Post
-          </button>
-          <button
+            Create User
+          </button> */}
+          {/* <button
             type="button"
             className="btn btn-outline-info"
-            onClick={getFetch}
+            onKeyDown={getFetch}
           >
             Get
-          </button>
-          <button
+          </button> */}
+          {/* <button
             type="button"
             className="btn btn-outline-info"
             onClick={putTasks}
           >
             Put
-          </button>
+          </button> */}
           <button
             type="button"
             className="btn btn-outline-info"
