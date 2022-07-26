@@ -11,7 +11,7 @@ const ToDos = () => {
 
   function createPost() {
     //FETCH USING POST METHOD
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
       method: "POST",
       body: JSON.stringify({}),
       headers: {
@@ -30,17 +30,27 @@ const ToDos = () => {
       .catch((error) => {
         //error handling
         console.log(error);
+        clickPost()
       });
   }
 
-
+  function displayData() {
+    return (
+    <div>
+    {tasks.map((task, index) => (
+              <Inputs
+                key={index}
+                id={index}
+                task={task.label}
+                onDelete={deleteTask}
+              />
+            ))}
+    </div>
+    )
+  }
   function getFetch() {
-    // if (e.key === "Enter")
-    //   return tasks.map((task, index) => {
-    //   });
-  
-    //FETCH USING GET METHOD
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
+    console.log("im being clicked")
+      fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,8 +63,9 @@ const ToDos = () => {
       })
       .then((data) => {
         //here is were your code should start after the fetch finishes
-        console.log("Using get method", data);
-        // setTasks(data);
+        console.log("GET DATA", data);
+        setTasks(data);
+        
       })
       .catch((error) => {
         //error handling
@@ -83,7 +94,7 @@ const ToDos = () => {
       tasks.push(newTask);
       console.log("#task000", tasks);
 
-      fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
+      fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
         method: "PUT",
         body: JSON.stringify(tasks),
         headers: {
@@ -91,9 +102,7 @@ const ToDos = () => {
         },
       })
         .then((resp) => {
-          console.log(resp.ok); // will be true if the response is successfull
-          console.log(resp.status); // the status code = 200 or code = 400 etc.
-          return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+          resp.status === 200 ? console.log("ok"): "";
         })
         .then((data) => {
           //here is were your code should start after the fetch finishes
@@ -109,7 +118,7 @@ const ToDos = () => {
   }
 
   function clearFetch() {
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
+    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -168,13 +177,13 @@ const ToDos = () => {
         </div>
 
         <div className="d-flex justify-content-center">
-          {/* <span
+          <button
             type="button"
             className="btn btn-outline-info"
-            onClick={createPost}
+            onClick={() => {displayData()}}
           >
             Create List
-          </span> */}
+          </button>
           {/* <button
             type="button"
             className="btn btn-outline-info"
