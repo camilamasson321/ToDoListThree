@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Inputs from "/workspace/react-hello/src/js/component/Inputs.jsx";
+import Inputs from "/workspace/ToDoListThree/src/js/component/Inputs.jsx";
 
 const ToDos = () => {
   const [inputValue, setInputValue] = useState("");
@@ -33,7 +33,12 @@ const ToDos = () => {
       });
   }
 
+
   function getFetch() {
+    // if (e.key === "Enter")
+    //   return tasks.map((task, index) => {
+    //   });
+  
     //FETCH USING GET METHOD
     fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest21", {
       method: "GET",
@@ -48,21 +53,24 @@ const ToDos = () => {
       })
       .then((data) => {
         //here is were your code should start after the fetch finishes
-        console.log("Using get method", data); //this will print on the console the exact object received from the server
+        console.log("Using get method", data);
+        // setTasks(data);
       })
       .catch((error) => {
         //error handling
         console.log(error);
       });
   }
-  function printTask() {
-    setTasks((tasks) => {
-      return tasks.map((item, index) => {
-        return index != id;
-      });
-    });
-  }
-  
+
+  // function printNewTask(e) {
+  //   if (e.key === "Enter") {
+  //     setTasks((tasks) => {
+  //       return [...tasks, inputValue];
+  //     });
+  //     setInputValue("");
+  //   }
+  // }
+
   // const printList = tasks.map((tasks, inputValue));
 
   function addNewTask(e) {
@@ -89,13 +97,14 @@ const ToDos = () => {
         })
         .then((data) => {
           //here is were your code should start after the fetch finishes
-          console.log("Using the PUT method", data); //this will print on the console the exact object received from the server
+          console.log("Using the PUT method", data); 
+          getFetch()
         })
         .catch((error) => {
           //error handling
           console.log(error);
         });
-      // setInputValue("")
+      setInputValue("")
     }
   }
 
@@ -124,12 +133,12 @@ const ToDos = () => {
 
   function deleteTask(id) {
     setTasks((tasks) => {
-      return tasks.filter((item, index) => {
+      return tasks.filter((task, index) => {
         return index != id;
       });
     });
   }
-
+  console.log("tasks", tasks)
   return (
     <div>
       <h1 className="todo-header">Todos</h1>
@@ -151,20 +160,21 @@ const ToDos = () => {
               <Inputs
                 key={index}
                 id={index}
-                task={task}
+                task={task.label}
                 onDelete={deleteTask}
               />
             ))}
           </ul>
         </div>
+
         <div className="d-flex justify-content-center">
-          {/* <button
+          {/* <span
             type="button"
             className="btn btn-outline-info"
             onClick={createPost}
           >
-            Create User
-          </button> */}
+            Create List
+          </span> */}
           {/* <button
             type="button"
             className="btn btn-outline-info"
