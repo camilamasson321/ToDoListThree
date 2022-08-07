@@ -34,20 +34,7 @@ const ToDos = () => {
       });
   }
 
-  function displayData() {
-    return (
-    <div>
-    {tasks.map((task, index) => (
-              <Inputs
-                key={index}
-                id={index}
-                task={task.label}
-                onDelete={deleteTask}
-              />
-            ))}
-    </div>
-    )
-  }
+
   function getFetch() {
     console.log("im being clicked")
       fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
@@ -117,28 +104,6 @@ const ToDos = () => {
     }
   }
 
-  function clearFetch() {
-    fetch("https://assets.breatheco.de/apis/fake/todos/user/usertest29", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((resp) => {
-        console.log(resp.ok); // will be true if the response is successfull
-        console.log(resp.status); // the status code = 200 or code = 400 etc.
-        return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-      })
-      .then((data) => {
-        //here is were your code should start after the fetch finishes
-        console.log("Using the PUT method", data); //this will print on the console the exact object received from the server
-      })
-      .catch((error) => {
-        //error handling
-        console.log(error);
-      });
-    setTasks([]);
-  }
 
   function deleteTask(id) {
     setTasks((tasks) => {
@@ -147,7 +112,6 @@ const ToDos = () => {
       });
     });
   }
-  console.log("tasks", tasks)
   return (
     <div>
       <h1 className="todo-header">Todos</h1>
@@ -174,37 +138,6 @@ const ToDos = () => {
               />
             ))}
           </ul>
-        </div>
-
-        <div className="d-flex justify-content-center">
-          <button
-            type="button"
-            className="btn btn-outline-info"
-            onClick={() => {displayData()}}
-          >
-            Create List
-          </button>
-          {/* <button
-            type="button"
-            className="btn btn-outline-info"
-            onKeyDown={getFetch}
-          >
-            Get
-          </button> */}
-          {/* <button
-            type="button"
-            className="btn btn-outline-info"
-            onClick={putTasks}
-          >
-            Put
-          </button> */}
-          <button
-            type="button"
-            className="btn btn-outline-info"
-            onClick={clearFetch}
-          >
-            Delete All
-          </button>
         </div>
       </div>
     </div>
